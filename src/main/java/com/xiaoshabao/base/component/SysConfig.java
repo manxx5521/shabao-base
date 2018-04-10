@@ -1,16 +1,12 @@
 package com.xiaoshabao.base.component;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import com.xiaoshabao.base.dao.BaseDao;
 import com.xiaoshabao.base.entity.SysConfigEntity;
 import com.xiaoshabao.base.exception.ServiceException;
+import com.xiaoshabao.base.service.SysConfigService;
 
 /**
  * 系统配置类<br>
@@ -19,11 +15,10 @@ import com.xiaoshabao.base.exception.ServiceException;
  * </p>
  */
 @Component("sysConfig")
-@CacheConfig(cacheNames="sysConfig")
-public class SysConfig {
+public class SysConfig{
 	
-	@Resource(name = "mybatisBaseDao")
-	private BaseDao baseDao;
+	@Autowired
+	private SysConfigService sysConfigService;
 	@Autowired  
     private Environment env;
 	
@@ -33,7 +28,6 @@ public class SysConfig {
 	 * @param classz
 	 * @return
 	 */
-	@Cacheable
 	public String getString(String key){
 		return (String) getConfigAll(key,Type.STRING);
 	}
@@ -43,7 +37,6 @@ public class SysConfig {
 	 * @param classz
 	 * @return
 	 */
-	@Cacheable
 	public String getString(SysEnum sysEnum){
 		return (String) getConfigAll(sysEnum.getName(),Type.STRING);
 	}
@@ -53,7 +46,6 @@ public class SysConfig {
 	 * @param classz
 	 * @return
 	 */
-	@Cacheable
 	public Integer getInteger(String key){
 		return (Integer) getConfigAll(key,Type.INTEGER);
 	}
@@ -63,7 +55,6 @@ public class SysConfig {
 	 * @param classz
 	 * @return
 	 */
-	@Cacheable
 	public Integer getInteger(SysEnum sysEnum){
 		return (Integer) getConfigAll(sysEnum.getName(),Type.INTEGER);
 	}
@@ -74,7 +65,6 @@ public class SysConfig {
 	 * @param classz
 	 * @return
 	 */
-	@Cacheable
 	public Boolean getBoolean(String key){
 		return (Boolean) getConfigAll(key,Type.BOOLEAN);
 	}
@@ -84,7 +74,6 @@ public class SysConfig {
 	 * @param classz
 	 * @return
 	 */
-	@Cacheable
 	public Boolean getBoolean(SysEnum sysEnum){
 		return (Boolean) getConfigAll(sysEnum.getName(),Type.BOOLEAN);
 	}
@@ -105,7 +94,7 @@ public class SysConfig {
 	
 	private Object getConfigAll(String key,Type type){
 		try {
-			SysConfigEntity config=this.baseDao.getDataById(SysConfigEntity.class, key);
+			SysConfigEntity config=this.sysConfigService.getDataById(SysConfigEntity.class, key);
 			Integer configType=null;
 			String configValue=null;
 			if(config!=null){
@@ -115,9 +104,6 @@ public class SysConfig {
 				configValue=env.getProperty("custom.sysConfig"+key);
 			}
 			
-			/*else if(sysConfig.containsKey(key)){
-				configValue=sysConfig.get(key);
-			}*/
 			if(configValue!=null){
 				switch(type){
 					case STRING:	
@@ -144,9 +130,12 @@ public class SysConfig {
 		throw new ServiceException("获取系统参数异常,系统中不存在符合规则的变量。");
 	}
 	
-	
 	enum Type{
 		STRING,INTEGER,BOOLEAN;
 	}
+
+
+
+	
 	
 }
