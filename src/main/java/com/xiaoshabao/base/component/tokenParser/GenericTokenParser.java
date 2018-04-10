@@ -2,7 +2,8 @@ package com.xiaoshabao.base.component.tokenParser;
 
 /**
  * 解析通用参数
- * <p>此类源于mybatis的{@link org.apache.ibatis.parsing.GenericTokenParser}�?</p>
+ * <p>此类源于mybatis的{@link org.apache.ibatis.parsing.GenericTokenParser}<br>
+ * 测试类为 GenericTokenParserTest 类</p>
  */
 public class GenericTokenParser {
 
