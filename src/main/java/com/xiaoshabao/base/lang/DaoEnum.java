@@ -1,4 +1,4 @@
-package com.xiaoshabao.base.enums;
+package com.xiaoshabao.base.lang;
 
 /**
  * 传入名字的静态值

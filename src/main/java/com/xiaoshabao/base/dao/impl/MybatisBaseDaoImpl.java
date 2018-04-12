@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.xiaoshabao.base.component.PageVo;
 import com.xiaoshabao.base.dao.BaseDao;
-import com.xiaoshabao.base.enums.DaoEnum;
+import com.xiaoshabao.base.lang.DaoEnum;
 
 /**
  * 通用的数据库操作组件
@@ -25,6 +25,10 @@ public class MybatisBaseDaoImpl extends SqlSessionDaoSupport implements BaseDao 
 	 * 目标对象类名称
 	 */
 	protected String clazzName;
+	
+//	也可以获得
+//	@Autowired
+//	private SqlSession sqlSession;  
 
 	// 注入sqlSession
 	@Resource
