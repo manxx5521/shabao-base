@@ -5,6 +5,7 @@ import java.util.Locale;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -54,6 +55,14 @@ public final class SpringContextHolder implements DisposableBean,
 	public static String getMessage(String code) {
 		return getMessage(code, null);
 	}
+	
+	/**
+     * 发布事件
+     * @param event
+     */
+    public static void publishEvent(ApplicationEvent event) {
+        getApplicationContext().publishEvent(event);
+    }
 	
 //  SpringContextHolder.getApplicationContext().getBeansOfType(FormSessionService.class); 获得某一个借口的所有实现
 }
