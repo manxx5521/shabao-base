@@ -100,8 +100,8 @@ public class SysConfig{
 			if(config!=null){
 				configType=config.getType();
 				configValue=config.getValue();
-			}else if(env.containsProperty("custom.sysConfig"+key)){
-				configValue=env.getProperty("custom.sysConfig"+key);
+			}else if(env.containsProperty("custom.sysConfig."+key)){
+				configValue=env.getProperty("custom.sysConfig."+key);
 			}
 			
 			if(configValue!=null){
