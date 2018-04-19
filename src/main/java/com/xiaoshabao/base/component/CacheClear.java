@@ -21,8 +21,6 @@ public class CacheClear implements ApplicationListener<ContextRefreshedEvent> {
 	 */
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
-		cacheManager.getCache("sysConfig").clear();
-
 		cacheManager.getCacheNames().forEach(name -> {
 			if (StringUtils.isNotEmpty(name) && name.startsWith("temp_")) {
 				cacheManager.getCache(name).clear();
