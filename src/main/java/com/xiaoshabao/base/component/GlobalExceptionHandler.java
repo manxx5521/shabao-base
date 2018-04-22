@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
+	
+	protected Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
 	/**
 	 * 视图异常处理
@@ -33,7 +37,8 @@ public class GlobalExceptionHandler {
 						&& request.getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1))) {
 			Map<String, Object> model = new HashMap<String, Object>();
 			model.put("e", e);
-			return new ModelAndView("WEB-INF/error", model);
+			logger.info("全局异常捕获",e);
+			return new ModelAndView("/error/500", model);
 		} else {
 			AjaxResult result = new AjaxResult();
 			result.setSuccess(false);
