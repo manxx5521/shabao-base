@@ -44,6 +44,11 @@ public final class SpringContextHolder implements DisposableBean,
 		Assert.notNull(type,"获得SpringBean时需要传入type");
 		return context.getBean(name, type);
 	}
+	
+	public static <T> T getBean( Class<T> type) {
+		Assert.notNull(type,"获得SpringBean时需要传入type");
+		return context.getBean( type);
+	}
 
 	public static String getMessage(String code, Object[] args) {
 		LocaleResolver localLocaleResolver = (LocaleResolver) getBean(
