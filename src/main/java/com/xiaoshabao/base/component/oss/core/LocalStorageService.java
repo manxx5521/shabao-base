@@ -2,14 +2,20 @@ package com.xiaoshabao.base.component.oss.core;
 
 import com.aliyun.oss.OSSClient;
 import com.xiaoshabao.base.component.SysConfig;
+import com.xiaoshabao.base.component.oss.OSSConstant;
 import com.xiaoshabao.base.exception.ServiceException;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+
 /**
  * 阿里云存储
  */
+@Service(OSSConstant.ablePrefix+1)
 public class LocalStorageService extends BaseStorageService{
 
     interface LocalConstant {
@@ -18,11 +24,6 @@ public class LocalStorageService extends BaseStorageService{
 
     public void init(){
     	
-    }
-
-    @Override
-    public String upload(byte[] data, String path) {
-        return upload(new ByteArrayInputStream(data), path);
     }
 
     @Override

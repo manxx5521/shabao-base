@@ -24,79 +24,76 @@ public class SysConfig{
 	
 	/**
 	 * 获得系统变量值
-	 * @param name
-	 * @param classz
-	 * @return
 	 */
 	public String getString(String key){
-		return (String) getConfigAll(key,Type.STRING);
+		return (String) getConfigNotNull(key,Type.STRING);
 	}
 	/**
 	 * 获得系统变量值
-	 * @param name
-	 * @param classz
-	 * @return
 	 */
 	public String getString(SysEnum sysEnum){
-		return (String) getConfigAll(sysEnum.getName(),Type.STRING);
+		return (String) getConfigNotNull(sysEnum.getName(),Type.STRING);
 	}
 	/**
 	 * 获得系统变量值
-	 * @param name
-	 * @param classz
-	 * @return
 	 */
 	public Integer getInteger(String key){
-		return (Integer) getConfigAll(key,Type.INTEGER);
+		return (Integer) getConfigNotNull(key,Type.INTEGER);
 	}
 	/**
 	 * 获得系统变量值
-	 * @param name
-	 * @param classz
-	 * @return
 	 */
 	public Integer getInteger(SysEnum sysEnum){
-		return (Integer) getConfigAll(sysEnum.getName(),Type.INTEGER);
+		return (Integer) getConfigNotNull(sysEnum.getName(),Type.INTEGER);
 	}
 	
 	/**
 	 * 获得系统变量值
-	 * @param name
-	 * @param classz
-	 * @return
 	 */
 	public Boolean getBoolean(String key){
-		return (Boolean) getConfigAll(key,Type.BOOLEAN);
+		return (Boolean) getConfigNotNull(key,Type.BOOLEAN);
 	}
 	/**
 	 * 获得系统变量值
-	 * @param name
-	 * @param classz
-	 * @return
 	 */
 	public Boolean getBoolean(SysEnum sysEnum){
-		return (Boolean) getConfigAll(sysEnum.getName(),Type.BOOLEAN);
+		return (Boolean) getConfigNotNull(sysEnum.getName(),Type.BOOLEAN);
+	}
+	/**
+	 * 获得系统变量值
+	 */
+	public String[] getArray(String key){
+		return (String[]) getConfigNotNull(key,Type.ARRAY);
 	}
 	/**
 	 * 验证是否存在变量
+	 */
+	public boolean exists(String key,Type type){
+		Object obj =getConfigValue(key,type);
+		if(obj==null) {
+			return false;
+		}
+		return true;
+	}
+	/**
+	 * 获得非空变量
 	 * @param key
 	 * @param type
 	 * @return
 	 */
-	public boolean exists(String key,Type type){
-		try {
-			getConfigAll(key,type);
-			return true;
-		} catch (Exception e) {
-			return false;
+	private Object getConfigNotNull(String key,Type type){
+		Object obj =getConfigValue(key,type);
+		if(obj==null) {
+			throw new ServiceException("系统参数“"+key+"”未配置！！");
 		}
+		return obj;
 	}
 	
-	private Object getConfigAll(String key,Type type){
+	private Object getConfigValue(String key,Type type) {
+		Integer configType=null;
+		String configValue=null;
 		try {
 			SysConfigEntity config=this.sysConfigService.getDataById(SysConfigEntity.class, key);
-			Integer configType=null;
-			String configValue=null;
 			if(config!=null){
 				configType=config.getType();
 				configValue=config.getValue();
@@ -120,22 +117,22 @@ public class SysConfig{
 						}else if((configType==null||configType==3)&&"N".equals(configValue)){
 							return Boolean.FALSE;
 						}
+					case ARRAY:	
+						if(configType==null||configType==4){
+							return configValue.split(",");
+						}
 					default:
 						break;
 				}
 			}
+			return configValue;
 		} catch (Exception e) {
 			throw new ServiceException("获取系统参数异常",e);
 		}
-		throw new ServiceException("获取系统参数异常,系统中不存在符合规则的变量。");
 	}
 	
-	enum Type{
-		STRING,INTEGER,BOOLEAN;
-	}
+}
 
-
-
-	
-	
+enum Type{
+	STRING,INTEGER,BOOLEAN,ARRAY;
 }

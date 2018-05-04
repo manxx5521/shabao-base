@@ -8,7 +8,7 @@ public enum SysEnum {
 	
 	private String name;
 	
-	/**类型 1.字符串 2.数字 3.布尔型*/
+	/**类型 1.字符串 2.数字 3.布尔型,4.字符数组*/
 	private int type;
 	
 	private SysEnum(String name,int type){

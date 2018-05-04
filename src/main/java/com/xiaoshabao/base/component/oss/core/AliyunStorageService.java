@@ -19,8 +19,6 @@ public class AliyunStorageService extends BaseStorageService {
     interface AliyunConstant {
     	/**阿里云绑定的域名*/
         String DOMAIN="custom.oss.aliyun.domain";
-        /**阿里云路径前缀*/
-        String PREFIX="custom.oss.aliyun.prefix";
         /**阿里云EndPoint*/
         String END_POINT="custom.oss.aliyun.endPoint";
         /**阿里云AccessKeyId*/
@@ -55,11 +53,11 @@ public class AliyunStorageService extends BaseStorageService {
 
     @Override
     public String uploadSuffix(byte[] data, String suffix) {
-        return upload(data, getPath(config.getString(AliyunConstant.PREFIX), suffix));
+        return upload(data, getPath(config.getString(suffix)));
     }
 
     @Override
     public String uploadSuffix(InputStream inputStream, String suffix) {
-        return upload(inputStream, getPath(config.getString(AliyunConstant.PREFIX), suffix));
+        return upload(inputStream, getPath(suffix));
     }
 }
