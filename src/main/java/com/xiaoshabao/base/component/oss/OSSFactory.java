@@ -5,8 +5,8 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import com.xiaoshabao.base.component.SpringContextHolder;
-import com.xiaoshabao.base.component.SysConfig;
 import com.xiaoshabao.base.component.oss.core.StorageAble;
+import com.xiaoshabao.base.component.sysConfig.SysConfig;
 
 /**
  * 文件上传Factory

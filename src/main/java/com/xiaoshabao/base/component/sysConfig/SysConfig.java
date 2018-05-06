@@ -1,4 +1,4 @@
-package com.xiaoshabao.base.component;
+package com.xiaoshabao.base.component.sysConfig;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -26,49 +26,49 @@ public class SysConfig{
 	 * 获得系统变量值
 	 */
 	public String getString(String key){
-		return (String) getConfigNotNull(key,Type.STRING);
+		return (String) getConfigNotNull(key,ConfigType.STRING);
 	}
 	/**
 	 * 获得系统变量值
 	 */
 	public String getString(SysEnum sysEnum){
-		return (String) getConfigNotNull(sysEnum.getName(),Type.STRING);
+		return (String) getConfigNotNull(sysEnum.getName(),ConfigType.STRING);
 	}
 	/**
 	 * 获得系统变量值
 	 */
 	public Integer getInteger(String key){
-		return (Integer) getConfigNotNull(key,Type.INTEGER);
+		return (Integer) getConfigNotNull(key,ConfigType.INTEGER);
 	}
 	/**
 	 * 获得系统变量值
 	 */
 	public Integer getInteger(SysEnum sysEnum){
-		return (Integer) getConfigNotNull(sysEnum.getName(),Type.INTEGER);
+		return (Integer) getConfigNotNull(sysEnum.getName(),ConfigType.INTEGER);
 	}
 	
 	/**
 	 * 获得系统变量值
 	 */
 	public Boolean getBoolean(String key){
-		return (Boolean) getConfigNotNull(key,Type.BOOLEAN);
+		return (Boolean) getConfigNotNull(key,ConfigType.BOOLEAN);
 	}
 	/**
 	 * 获得系统变量值
 	 */
 	public Boolean getBoolean(SysEnum sysEnum){
-		return (Boolean) getConfigNotNull(sysEnum.getName(),Type.BOOLEAN);
+		return (Boolean) getConfigNotNull(sysEnum.getName(),ConfigType.BOOLEAN);
 	}
 	/**
 	 * 获得系统变量值
 	 */
 	public String[] getArray(String key){
-		return (String[]) getConfigNotNull(key,Type.ARRAY);
+		return (String[]) getConfigNotNull(key,ConfigType.ARRAY);
 	}
 	/**
 	 * 验证是否存在变量
 	 */
-	public boolean exists(String key,Type type){
+	public boolean exists(String key,ConfigType type){
 		Object obj =getConfigValue(key,type);
 		if(obj==null) {
 			return false;
@@ -81,15 +81,20 @@ public class SysConfig{
 	 * @param type
 	 * @return
 	 */
-	private Object getConfigNotNull(String key,Type type){
+	private Object getConfigNotNull(String key,ConfigType type){
 		Object obj =getConfigValue(key,type);
 		if(obj==null) {
 			throw new ServiceException("系统参数“"+key+"”未配置！！");
 		}
 		return obj;
 	}
-	
-	private Object getConfigValue(String key,Type type) {
+	/**
+	 * 获得变量
+	 * @param key
+	 * @param type
+	 * @return 没有时返回null
+	 */
+	private Object getConfigValue(String key,ConfigType type) {
 		Integer configType=null;
 		String configValue=null;
 		try {
@@ -133,6 +138,3 @@ public class SysConfig{
 	
 }
 
-enum Type{
-	STRING,INTEGER,BOOLEAN,ARRAY;
-}

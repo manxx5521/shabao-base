@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.xiaoshabao.base.component.AjaxResult;
+import com.xiaoshabao.base.exception.MsgErrorException;
+
 
 /**
  * 文件上传
@@ -21,14 +24,14 @@ public class OssController{
 	 * 上传文件
 	 */
 	@RequestMapping("/upload")
-	public ObjectRestResponse<String> upload(@RequestParam("file") MultipartFile file) throws Exception {
+	public AjaxResult upload(@RequestParam("file") MultipartFile file) throws Exception {
 		if (file.isEmpty()) {
-			throw new serviceException("上传文件不能为空");
+			throw new MsgErrorException("上传文件不能为空");
 		}
 		//上传文件
 		String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 		String url = ossFactory.build().uploadSuffix(file.getBytes(), suffix);
-		return new ObjectRestResponse<>().data(url);
+		return new AjaxResult(true,"上传成功",url);
 	}
 
 

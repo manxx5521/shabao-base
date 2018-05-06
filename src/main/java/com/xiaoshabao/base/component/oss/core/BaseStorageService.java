@@ -9,8 +9,9 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.xiaoshabao.base.component.SysConfig;
 import com.xiaoshabao.base.component.oss.OSSConstant;
+import com.xiaoshabao.base.component.sysConfig.ConfigType;
+import com.xiaoshabao.base.component.sysConfig.SysConfig;
 import com.xiaoshabao.base.exception.MsgErrorException;
 
 /**
@@ -33,7 +34,11 @@ public abstract class BaseStorageService  implements StorageAble{
     
     private void initConfig() {
     	basePath=config.getString(OSSConstant.basePathId);
-//    	if(config.exists(key, null);
+    	if(config.exists(OSSConstant.fileTypesId, ConfigType.ARRAY)){
+    		fileTypes=config.getArray(OSSConstant.fileTypesId);
+    	}else{
+    		fileTypes=new String[]{};
+    	}
     }
     
     /**
@@ -58,7 +63,7 @@ public abstract class BaseStorageService  implements StorageAble{
         //生成uuid
         String uuid = UUID.randomUUID().toString().replace("-", "");
         //文件路径
-        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");//定义格式，不显示毫秒
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHH");//定义格式，不显示毫秒
         String path=df.format(System.currentTimeMillis()) + "/" + uuid;
 //        String path = DateTime.now().toString("yyyyMMdd") + "/" + uuid;
         path = basePath + "/" + path;
@@ -89,6 +94,8 @@ public abstract class BaseStorageService  implements StorageAble{
 					return true;
 				}
 			}
+		}else{
+			return true;
 		}
 		return false;
 	}

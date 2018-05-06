@@ -6,6 +6,17 @@ import java.util.Map;
  * 简单的参数匹配
  */
 public class TokenParserUtil {
+	/**
+	 * map参数解析形式@{param}类型
+	 * @param str 需要解析的字符串
+	 * @param params 替换的参数
+	 * @return
+	 */
+	public static String parser(String str,Map<String,Object> params) {
+		TokenHandler handler=new MapTokenHandler(params);
+	    GenericTokenParser parser=new GenericTokenParser("@{","}",handler);
+	    return parser.parse(str);
+	}
 	
 	/**
 	 * map参数解析形式
@@ -18,6 +29,6 @@ public class TokenParserUtil {
 	public static String parser(String str,String openToken, String closeToken,Map<String,Object> params) {
 		TokenHandler handler=new MapTokenHandler(params);
 	    GenericTokenParser parser=new GenericTokenParser(openToken,closeToken,handler);
-	    return parser.parse(openToken);
+	    return parser.parse(str);
 	}
 }

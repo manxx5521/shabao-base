@@ -1,4 +1,4 @@
-package com.xiaoshabao.base.component;
+package com.xiaoshabao.base.component.sysConfig;
 
 public enum SysEnum {
 	/**
