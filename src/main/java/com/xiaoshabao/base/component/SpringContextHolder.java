@@ -6,7 +6,9 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.web.servlet.LocaleResolver;
@@ -16,19 +18,15 @@ import org.springframework.web.servlet.LocaleResolver;
  */
 @Component("springContextHolder")
 @Lazy(false)
-public final class SpringContextHolder implements DisposableBean,
-		ApplicationContextAware {
+public final class SpringContextHolder implements ApplicationListener<ContextRefreshedEvent> {
 	private static ApplicationContext context;
 
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) {
-		context = applicationContext;
-	}
-
-	@Override
-	public void destroy() {
-		context = null;
-	}
+	@Override  
+    public void onApplicationEvent(ContextRefreshedEvent event) {  
+        if(context == null){  
+        	context = event.getApplicationContext();  
+        }  
+    }  
 
 	public static ApplicationContext getApplicationContext() {
 		return context;

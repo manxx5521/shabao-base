@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
@@ -60,4 +61,23 @@ public class AliyunStorageService extends BaseStorageService {
     public String uploadSuffix(InputStream inputStream, String suffix) {
         return upload(inputStream, getPath(suffix));
     }
+
+	@Override
+	public String upload(MultipartFile file) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getBasePath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String save(byte[] data, String basePath, String relativePath) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

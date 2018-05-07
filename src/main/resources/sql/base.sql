@@ -6,3 +6,28 @@ CREATE TABLE `sys_config` (
   `remark` varchar(30) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统配置表';
+
+-- ----------------------------
+-- Records of sys_config
+-- ----------------------------
+INSERT INTO `sys_config` VALUES ('custom.oss.basePath', '基本目录', '1', '/', '文件存储');
+INSERT INTO `sys_config` VALUES ('custom.oss.type', '文件保存方式', '2', '1', '文件存储');
+INSERT INTO `sys_config` VALUES ('site_ava_dir', '头像路径', '1', '/store/ava', null);
+INSERT INTO `sys_config` VALUES ('site_description', '站点描述', '1', '一个个人网站', null);
+INSERT INTO `sys_config` VALUES ('site_domain', '域名', '1', 'www.xiaoshabao.com', null);
+INSERT INTO `sys_config` VALUES ('site_keywords', '关键字', '1', '博客，技术', null);
+INSERT INTO `sys_config` VALUES ('site_metas', '站点meta', '1', '', null);
+INSERT INTO `sys_config` VALUES ('site_name', '网站名', '1', '个人博客', null);
+INSERT INTO `sys_config` VALUES ('site_root_path', '文件根目录', '1', '/data/mblog', null);
+
+CREATE TABLE `sys_file` (
+  `file_id` bigint(18) NOT NULL,
+  `upload_name` varchar(50) NOT NULL,
+  `ext` varchar(10) NOT NULL,
+  `save_path` varchar(50) NOT NULL,
+  `size` bigint(10) NOT NULL,
+  `md5` varchar(32) NOT NULL,
+  `create_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`file_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
