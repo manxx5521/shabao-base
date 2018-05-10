@@ -1,7 +1,6 @@
 package com.xiaoshabao.base.component.oss.core;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
@@ -40,7 +39,12 @@ public abstract class BaseStorageService  implements StorageAble{
 	protected Integer maxSize;
     
     public void initConfig() {
-    	basePath=config.getString(StorageConstant.basePathId);
+    	if(config.exists(StorageConstant.basePathId)) {
+    		basePath=config.getString(StorageConstant.basePathId);
+    	}else {
+    		basePath="";
+    	}
+    	
     	if(config.exists(StorageConstant.fileTypesId, ConfigType.ARRAY)){
     		fileTypes=config.getArray(StorageConstant.fileTypesId);
     	}else{

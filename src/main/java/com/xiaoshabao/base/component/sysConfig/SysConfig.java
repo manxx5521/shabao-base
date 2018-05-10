@@ -68,6 +68,12 @@ public class SysConfig{
 	/**
 	 * 验证是否存在变量
 	 */
+	public boolean exists(String key){
+		return exists(key,ConfigType.STRING);
+	}
+	/**
+	 * 验证是否存在变量
+	 */
 	public boolean exists(String key,ConfigType type){
 		Object obj =getConfigValue(key,type);
 		if(obj==null) {

@@ -3,18 +3,18 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xiaoshabao.base.entity.SysFileEntity">
 	<select id="getSysFileEntityById" resultType="com.xiaoshabao.base.entity.SysFileEntity">
-		SELECT FILE_ID,FILE_NAME,SIZE,MD5,CREATE_TIME FROM SYS_FILE WHERE FILE_ID=#{id}
+		SELECT FILE_ID,FILE_NAME,SIZE,MD5,CREATE_TIME FROM sys_file WHERE FILE_ID=#{id}
 	</select>
 	<insert id="insertSysFileEntity">
 		INSERT INTO sys_file
-		(FILE_ID,UPLOAD_NAME,
-		 EXT,SAVE_PATH,
-		 SIZE,MD5
+		(FILE_ID,UPLOAD_NAME
+		 ,EXT,SAVE_PATH
+		 ,SIZE,MD5
 		 ,CREATE_TIME)
 		values
-		(#{fileId,jdbcType=NUMERIC},#{uploadName,jdbcType=VARCHAR},
-		,#{ext,jdbcType=VARCHAR},#{savePath,jdbcType=VARCHAR},
-		#{size,jdbcType=NUMERIC},#{md5,jdbcType=VARCHAR},
-		SYSDATE())
+		(#{fileId,jdbcType=NUMERIC},#{uploadName,jdbcType=VARCHAR}
+		,#{ext,jdbcType=VARCHAR},#{savePath,jdbcType=VARCHAR}
+		,#{size,jdbcType=NUMERIC},#{md5,jdbcType=VARCHAR}
+		,SYSDATE())
 	</insert>
 </mapper>
