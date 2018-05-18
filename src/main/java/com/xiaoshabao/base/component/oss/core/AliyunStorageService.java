@@ -36,12 +36,10 @@ public class AliyunStorageService extends BaseStorageService {
                 config.getString(AliyunConstant.ACCESS_KEY_SECRET));
     }
 
-    @Override
     public String upload(byte[] data, String path) {
         return upload(new ByteArrayInputStream(data), path);
     }
 
-    @Override
     public String upload(InputStream inputStream, String path) {
         try {
             client.putObject(config.getString(AliyunConstant.BUCKET_NAME), path, inputStream);
@@ -52,15 +50,6 @@ public class AliyunStorageService extends BaseStorageService {
         return config.getString(AliyunConstant.DOMAIN) + "/" + path;
     }
 
-    @Override
-    public String uploadSuffix(byte[] data, String suffix) {
-        return upload(data, getPath(config.getString(suffix)));
-    }
-
-    @Override
-    public String uploadSuffix(InputStream inputStream, String suffix) {
-        return upload(inputStream, getPath(suffix));
-    }
 
 	@Override
 	public String upload(MultipartFile file) {

@@ -1,9 +1,7 @@
 package com.xiaoshabao.base.component.oss.core;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -148,31 +146,6 @@ public abstract class BaseStorageService  implements StorageAble{
      * @return 返回可访问的url，用作回显
      */
     public abstract String save(byte[] data,String basePath,String relativePath) throws Exception ;
-    
-/***********************************/    
-    
-    @Override
-    public String upload(byte[] data, String path) {
-        return upload(new ByteArrayInputStream(data), path);
-    }
-    
-    /**
-     * 文件路径
-     * @param prefix 前缀
-     * @param suffix 后缀
-     * @return 返回上传路径
-     */
-    public String getPath(String suffix) {
-        //生成uuid
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        //文件路径
-        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHH");//定义格式，不显示毫秒
-        String path=df.format(System.currentTimeMillis()) + "/" + uuid;
-//        String path = DateTime.now().toString("yyyyMMdd") + "/" + uuid;
-        path = basePath + "/" + path;
-
-        return path + suffix;
-    }
     
 
 }

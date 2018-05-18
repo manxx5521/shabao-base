@@ -29,8 +29,7 @@ public class OssController{
 			throw new MsgErrorException("上传文件不能为空");
 		}
 		//上传文件
-		String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-		String url = ossFactory.build().uploadSuffix(file.getBytes(), suffix);
+		String url = ossFactory.build().upload(file);
 		return new AjaxResult(true,"上传成功",url);
 	}
 
