@@ -41,7 +41,7 @@ public class WebConfig  implements WebMvcConfigurer {
 
 		//存储文件为绝对目录时，添加映射关系
 		if (sysConfig.exists(StorageConstant.typeId)&&sysConfig.getInteger(StorageConstant.typeId)==OSSConstant.Type.LOCAL_ABSOLUTE) {
-			registry.addResourceHandler("/f/**").addResourceLocations((File.separator.equals("/")?"":"file:") 
+			registry.addResourceHandler("/f/**").addResourceLocations((File.separator.equals("/")?"file://":"file:") 
 					+ sysConfig.getString(StorageConstant.basePathId));
 			
 		}
