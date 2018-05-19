@@ -1,5 +1,6 @@
 package com.xiaoshabao.base.component;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,9 @@ public class WebConfig  implements WebMvcConfigurer {
 
 		//存储文件为绝对目录时，添加映射关系
 		if (sysConfig.exists(StorageConstant.typeId)&&sysConfig.getInteger(StorageConstant.typeId)==OSSConstant.Type.LOCAL_ABSOLUTE) {
-			registry.addResourceHandler("/f/**").addResourceLocations("file:" + sysConfig.getString(StorageConstant.basePathId));
+			registry.addResourceHandler("/f/**").addResourceLocations((File.separator.equals("/")?"":"file:") 
+					+ sysConfig.getString(StorageConstant.basePathId));
+			
 		}
 
 		// 重新注入swagger
