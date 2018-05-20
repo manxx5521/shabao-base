@@ -2,6 +2,7 @@ package com.xiaoshabao.base.component.oss.core;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -113,6 +114,14 @@ public abstract class BaseStorageService  implements StorageAble{
     
     public final String save(byte[] data,String fileName,long size) {
     	String md5 = DigestUtils.md5Hex(data);
+    	SysFileEntity entity=new SysFileEntity();
+    	entity.setMd5(md5);
+    	
+    	List<SysFileEntity> dbEntitys=baseDao.getData(SysFileEntity.class, entity);
+    	if(dbEntitys!=null&&!dbEntitys.isEmpty()){
+    		
+    	}
+    	
     	String ext=FilenameUtils.getExtension(fileName);
     	String baseName=FilenameUtils.getBaseName(fileName);
     	
@@ -122,13 +131,13 @@ public abstract class BaseStorageService  implements StorageAble{
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");//定义格式，不显示毫秒
         String path=df.format(System.currentTimeMillis())+"/";
         
-        SysFileEntity entity=new SysFileEntity();
+        
         entity.setFileId(id);
         entity.setUploadName(baseName);
         entity.setSavePath(path);
         entity.setExt(ext);
         entity.setSize(size);
-        entity.setMd5(md5);
+        
         baseDao.insert(SysFileEntity.class, entity);
         
     	try {

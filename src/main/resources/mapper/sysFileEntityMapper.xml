@@ -2,9 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xiaoshabao.base.entity.SysFileEntity">
-	<select id="getSysFileEntityById" resultType="com.xiaoshabao.base.entity.SysFileEntity">
-		SELECT FILE_ID,FILE_NAME,SIZE,MD5,CREATE_TIME FROM sys_file WHERE FILE_ID=#{id}
-	</select>
 	<insert id="insertSysFileEntity">
 		INSERT INTO sys_file
 		(FILE_ID,UPLOAD_NAME
@@ -17,4 +14,33 @@
 		,#{size,jdbcType=NUMERIC},#{md5,jdbcType=VARCHAR}
 		,SYSDATE())
 	</insert>
+	<select id="getSysFileEntityById" resultType="com.xiaoshabao.base.entity.SysFileEntity">
+		SELECT 
+			FILE_ID,UPLOAD_NAME
+			,EXT,SAVE_PATH
+			,SIZE,MD5,
+			CREATE_TIME 
+		FROM sys_file
+		WHERE FILE_ID=#{id}
+	</select>
+	<select id="getSysFileEntity" resultType="com.xiaoshabao.base.entity.SysFileEntity">
+		SELECT 
+			FILE_ID,UPLOAD_NAME
+			,EXT,SAVE_PATH
+			,SIZE,MD5,
+			CREATE_TIME 
+		FROM sys_file
+		<where>
+			<if test="fileId != null">
+				and file_id=#{fileId}
+			</if>
+			<if test="uploadName != null and uploadName !=''">
+				and project_id=#{uploadName}
+			</if>
+			<if test="md5 != null and md5 !=''">
+				and md5=#{md5}
+			</if>
+		</where>	
+	</select>
+	
 </mapper>
