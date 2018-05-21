@@ -70,12 +70,6 @@ public class AliyunStorageService extends BaseStorageService {
 	}
 
 	@Override
-	public String getUrl(Long fileId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public String getUrlFull(Long fileId) {
 		// TODO Auto-generated method stub
 		return null;
@@ -83,6 +77,12 @@ public class AliyunStorageService extends BaseStorageService {
 
 	@Override
 	public String getBaseUrl() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected String saveThumbnails(Long fileId, MultipartFile file, int x, int y, int width, int height) {
 		// TODO Auto-generated method stub
 		return null;
 	}
