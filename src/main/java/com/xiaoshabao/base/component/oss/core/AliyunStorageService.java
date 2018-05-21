@@ -82,7 +82,27 @@ public class AliyunStorageService extends BaseStorageService {
 	}
 
 	@Override
-	protected String saveThumbnails(Long fileId, MultipartFile file, int x, int y, int width, int height) {
+	public String upload(MultipartFile file, int x, int y, int width, int height) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String upload(MultipartFile file, int x, int y, int width,
+			int height, int maxLength) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getRealFilePath(Long fileId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String upload(String filePath, int x, int y, int width, int height,
+			int maxLength) {
 		// TODO Auto-generated method stub
 		return null;
 	}

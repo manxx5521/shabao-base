@@ -1,9 +1,6 @@
 package com.xiaoshabao.base.component.oss.core;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -25,8 +22,6 @@ import com.xiaoshabao.base.entity.SysFileEntity;
 import com.xiaoshabao.base.exception.MsgErrorException;
 import com.xiaoshabao.base.util.SnowflakeUtil;
 
-import net.coobird.thumbnailator.Thumbnails;
-
 /**
  * 云存储(支持七牛、阿里云、腾讯云、又拍云)
  */
@@ -42,12 +37,27 @@ public abstract class BaseStorageService  implements StorageAble{
 	protected String[] fileTypes;
 	
 	protected Integer maxSize;
+	/**可能分目录存放 ava/ (默认存放在default)*/
+	protected String typePath;
+	/**保存文件创建多级文件表达式*/
+	protected String dataDirPattern;
     
-    public void initConfig() {
+	/**
+	 * 初始化设置
+	 * @param basePath 可能分目录存放 ava/
+	 * @param dataDirPattern 分目录存放常用 默认yyyyMMdd
+	 */
+    public void initConfig(String typePath,String dataDirPattern) {
+    	if(typePath==null){
+    		typePath="default/";
+    	}
+    	this.typePath=typePath;
+    	this.dataDirPattern=dataDirPattern!=null?dataDirPattern:"yyyyMMdd";
+    	
     	if(config.exists(StorageConstant.basePathId)) {
-    		basePath=config.getString(StorageConstant.basePathId);
-    	}else {
-    		basePath="";
+    		this.basePath=config.getString(StorageConstant.basePathId)+this.typePath;
+    	}else{
+    		this.basePath=this.typePath;
     	}
     	
     	if(config.exists(StorageConstant.fileTypesId, ConfigType.ARRAY)){
@@ -141,15 +151,7 @@ public abstract class BaseStorageService  implements StorageAble{
 			throw new MsgErrorException("保存文件时，生成文件异常");
 		}
 	}
-    
-    public String upload(MultipartFile file,int x, int y, int width, int height) {
-    	UploadInfo info=uploadForInfo(file);
-    	Long id=SnowflakeUtil.nextId();
-    	return saveThumbnails(id,file, x, y, width, height);
-    }
-    
-    protected abstract String saveThumbnails(Long fileId,MultipartFile file,int x, int y, int width, int height);
-    
+            
     protected final SysFileEntity insertEntity(String md5,String fileName,long size) {
     	return insertEntity(SnowflakeUtil.nextId(), md5, fileName, size);
     }
@@ -159,9 +161,9 @@ public abstract class BaseStorageService  implements StorageAble{
     	String ext=FilenameUtils.getExtension(fileName);
     	String baseName=FilenameUtils.getBaseName(fileName);
     	//文件路径
-        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");//定义格式，不显示毫秒
+        SimpleDateFormat df = new SimpleDateFormat(dataDirPattern);//定义格式，不显示毫秒
         String path=df.format(System.currentTimeMillis())+"/";
-        
+        entity.setMd5(md5);
         entity.setFileId(id);
         entity.setUploadName(baseName);
         entity.setSavePath(path);
@@ -209,7 +211,19 @@ public abstract class BaseStorageService  implements StorageAble{
    	 * @return
    	 */
    	public abstract String getBaseUrl();
-   	
+   	/**
+   	 * 获得文件相对路径（不包括basePath）
+   	 * @param fileEntity
+   	 * @return
+   	 */
+   	@Override
+   	public String getRealFilePath(Long fileId) {
+   		SysFileEntity dbEntitys=baseDao.getDataById(SysFileEntity.class, fileId);
+    	if(dbEntitys==null) {
+    		return null;
+    	}
+   		return getRealFilePath(dbEntitys);
+   	}
    	/**
    	 * 获得文件真实存放路径
    	 * @param fileEntity

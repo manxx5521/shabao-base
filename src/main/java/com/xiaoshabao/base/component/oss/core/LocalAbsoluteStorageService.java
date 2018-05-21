@@ -34,7 +34,7 @@ public class LocalAbsoluteStorageService extends BaseLocalStorageService impleme
 
 	@Override
 	public String getBaseUrl() {
-		return context.getContextPath()+"/f/";
+		return context.getContextPath()+"/f/"+typePath;
 	}
 
 
