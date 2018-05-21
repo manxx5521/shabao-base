@@ -20,5 +20,15 @@ public interface StorageAble {
 	 */
 	String upload(MultipartFile file);
 	
+	/**
+	 * 获得url，本站采用 /f/201805/100.jpg 形式
+	 * @return 找不到时返回null
+	 */
+	String getUrl(Long fileId);
+	/**
+	 * 获得全路径url http://localshot/f/201805/100.jpg 形式
+	 * @return 找不到时返回null
+	 */
+	String getUrlFull(Long fileId);
 	
 }

@@ -69,4 +69,22 @@ public class AliyunStorageService extends BaseStorageService {
 		return null;
 	}
 
+	@Override
+	public String getUrl(Long fileId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUrlFull(Long fileId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getBaseUrl() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

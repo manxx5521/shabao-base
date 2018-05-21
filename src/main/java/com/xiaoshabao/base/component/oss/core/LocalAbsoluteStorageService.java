@@ -1,9 +1,5 @@
 package com.xiaoshabao.base.component.oss.core;
 
-import java.io.File;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.ServletContextAware;
 
@@ -36,15 +32,10 @@ public class LocalAbsoluteStorageService extends BaseLocalStorageService impleme
    		return basePath;
    	}
 
-   	@Override
-   	public String save(byte[] data, String basePath,String relativePath) throws Exception {
-   		File dir=new File(FilenameUtils.getFullPath(basePath+relativePath));
-   		if(!dir.exists()) {
-   			dir.mkdirs();
-   		}
-		FileUtils.writeByteArrayToFile(new File(basePath+relativePath), data);
-		return context.getContextPath()+"/f/"+relativePath;
-   	}
-   	
+	@Override
+	public String getBaseUrl() {
+		return context.getContextPath()+"/f/";
+	}
+
 
 }

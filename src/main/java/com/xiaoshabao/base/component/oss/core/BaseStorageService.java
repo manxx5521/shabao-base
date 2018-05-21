@@ -117,9 +117,10 @@ public abstract class BaseStorageService  implements StorageAble{
     	SysFileEntity entity=new SysFileEntity();
     	entity.setMd5(md5);
     	
+    	//检查是否存在文件
     	List<SysFileEntity> dbEntitys=baseDao.getData(SysFileEntity.class, entity);
     	if(dbEntitys!=null&&!dbEntitys.isEmpty()){
-    		
+    		return getUrl(dbEntitys.get(0));
     	}
     	
     	String ext=FilenameUtils.getExtension(fileName);
@@ -156,5 +157,29 @@ public abstract class BaseStorageService  implements StorageAble{
      */
     public abstract String save(byte[] data,String basePath,String relativePath) throws Exception ;
     
+    
+    @Override
+	public String getUrl(Long fileId) {
+    	SysFileEntity dbEntitys=baseDao.getDataById(SysFileEntity.class, fileId);
+    	if(dbEntitys==null) {
+    		return null;
+    	}
+		return getUrl(dbEntitys);
+	}
+
+
+    /**
+	 * 获得url，本站采用 /f/201805/100.jpg 形式
+	 * @return 找不到时返回null
+	 */
+    protected String getUrl(SysFileEntity fileEntity) {
+    	return getBaseUrl()+fileEntity.getSavePath()+fileEntity.getFileId()+"."+fileEntity.getExt();
+    }
+    
+    /**
+   	 * http访问基本url
+   	 * @return
+   	 */
+   	public abstract String getBaseUrl();
 
 }
