@@ -104,7 +104,7 @@ public class SysConfig{
 		Integer configType=null;
 		String configValue=null;
 		try {
-			SysConfigEntity config=this.sysConfigService.getDataById(SysConfigEntity.class, key);
+			SysConfigEntity config=this.sysConfigService.getDataById(key);
 			if(config!=null){
 				configType=config.getType();
 				configValue=config.getValue();

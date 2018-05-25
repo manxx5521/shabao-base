@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +15,9 @@ import com.xiaoshabao.base.component.oss.StorageConstant;
 import com.xiaoshabao.base.component.oss.dto.UploadInfo;
 import com.xiaoshabao.base.component.sysConfig.ConfigType;
 import com.xiaoshabao.base.component.sysConfig.SysConfig;
-import com.xiaoshabao.base.dao.BaseDao;
 import com.xiaoshabao.base.entity.SysFileEntity;
 import com.xiaoshabao.base.exception.MsgErrorException;
+import com.xiaoshabao.base.service.SysFileService;
 import com.xiaoshabao.base.util.SnowflakeUtil;
 
 /**
@@ -29,8 +27,8 @@ import com.xiaoshabao.base.util.SnowflakeUtil;
 public abstract class BaseStorageService  implements StorageAble{
 	@Autowired
     protected SysConfig config;
-	@Resource(name = "mybatisBaseDao")
-	protected BaseDao baseDao;
+	@Autowired
+	protected SysFileService fileService;
 	/**上传根目录*/
 	protected String basePath;
 	
@@ -126,11 +124,10 @@ public abstract class BaseStorageService  implements StorageAble{
     	try {
     		byte[] data=file.getBytes();
     		String md5 = DigestUtils.md5Hex(data);
-        	SysFileEntity entity=new SysFileEntity();
-        	entity.setMd5(md5);
+        	SysFileEntity entity=null;
         	
         	//检查是否存在文件
-        	List<SysFileEntity> dbEntitys=baseDao.getData(SysFileEntity.class, entity);
+        	List<SysFileEntity> dbEntitys=fileService.getFileEntityByMD5(md5);
         	if(dbEntitys!=null&&!dbEntitys.isEmpty()){
         		//如果已经存在
         		entity=dbEntitys.get(0);
@@ -170,7 +167,7 @@ public abstract class BaseStorageService  implements StorageAble{
         entity.setExt(ext);
         entity.setSize(size);
         
-        baseDao.insert(SysFileEntity.class, entity);
+        fileService.insertFileEntity(entity);
     	return entity;
     }
     
@@ -190,7 +187,7 @@ public abstract class BaseStorageService  implements StorageAble{
     
     @Override
 	public final String getUrl(Long fileId) {
-    	SysFileEntity dbEntitys=baseDao.getDataById(SysFileEntity.class, fileId);
+    	SysFileEntity dbEntitys=fileService.getFileEntityById(fileId);
     	if(dbEntitys==null) {
     		return null;
     	}
@@ -218,7 +215,7 @@ public abstract class BaseStorageService  implements StorageAble{
    	 */
    	@Override
    	public String getRealFilePath(Long fileId) {
-   		SysFileEntity dbEntitys=baseDao.getDataById(SysFileEntity.class, fileId);
+   		SysFileEntity dbEntitys=fileService.getFileEntityById(fileId);
     	if(dbEntitys==null) {
     		return null;
     	}

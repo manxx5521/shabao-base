@@ -2,6 +2,7 @@ package com.xiaoshabao.base.dao;
 
 import java.util.List;
 
+import com.xiaoshabao.base.component.PageDto;
 import com.xiaoshabao.base.component.PageVo;
 
 /**
@@ -105,6 +106,6 @@ public interface BaseDao {
 	/**
 	 * 分页查询业务数据
 	 */
-	public <T, P extends PageVo> List<T> getDataPaging(Class<T> clazz, P PageVo);
+	public <T, P extends PageVo> PageDto<T> getDataPaging(Class<T> clazz, P PageVo);
 
 }
