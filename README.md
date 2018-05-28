@@ -1,5 +1,4 @@
-# shabao-base
-基础包项目，想要实现大部分通用功能。
+# shabao-base（基础包项目）
 提供基础通用功能：
 +	1、spring基础实现类。
 +	2、SysConfig类实现通用系统配置。
