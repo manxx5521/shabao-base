@@ -143,9 +143,9 @@ public abstract class BaseStorageService  implements StorageAble{
         	result.setFilePath(getRealFilePath(entity));
     		return result;
 		} catch (IOException e) {
-			throw new MsgErrorException("获得文件内容数组失败");
+			throw new MsgErrorException("获得文件内容数组失败",e);
 		}catch (Exception e) {
-			throw new MsgErrorException("保存文件时，生成文件异常");
+			throw new MsgErrorException("保存文件时，生成文件异常",e);
 		}
 	}
             

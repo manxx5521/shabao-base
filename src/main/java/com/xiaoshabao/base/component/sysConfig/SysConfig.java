@@ -2,6 +2,7 @@ package com.xiaoshabao.base.component.sysConfig;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.xiaoshabao.base.entity.SysConfigEntity;
@@ -137,7 +138,10 @@ public class SysConfig{
 				}
 			}
 			return configValue;
-		} catch (Exception e) {
+		}catch(EmptyResultDataAccessException ere) {
+//			throw new ServiceException("获取系统参数异常。没有配置参数"+key+",或者是配置的参数获得多条记录",ere);
+			return null;
+		}catch (Exception e) {
 			throw new ServiceException("获取系统参数异常",e);
 		}
 	}

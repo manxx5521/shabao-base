@@ -30,8 +30,6 @@ public class SysFileServiceImpl implements SysFileService {
 	@Cacheable
 	public SysFileEntity getFileEntityById(Long id) {
 		String sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE FILE_ID=?";
-		// return jdbcTemplate.queryForObject(sql, new Object[] { id }, new int[] {
-		// Types.NUMERIC }, SysFileEntity.class);
 		return jdbcTemplate.queryForObject(sql, new Object[] { id }, new int[] { Types.NUMERIC },
 				new BeanPropertyRowMapper<SysFileEntity>(SysFileEntity.class));
 	}
@@ -39,7 +37,8 @@ public class SysFileServiceImpl implements SysFileService {
 	@Override
 	public List<SysFileEntity> getFileEntityByMD5(String md5) {
 		String sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE MD5=?";
-		return jdbcTemplate.queryForList(sql, new Object[] { md5 }, new int[] { Types.VARCHAR }, SysFileEntity.class);
+		return jdbcTemplate.query(sql, new Object[] { md5 }, new int[] { Types.VARCHAR },
+				new BeanPropertyRowMapper<SysFileEntity>(SysFileEntity.class));
 	}
 
 	@Override
