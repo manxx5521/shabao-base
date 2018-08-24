@@ -1,11 +1,15 @@
 package com.xiaoshabao.base;
 
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@ComponentScan(basePackages="com.xiaoshabao.base.controller")
-@ComponentScan(basePackages="com.xiaoshabao.base.dao")
-@ComponentScan(basePackages="com.xiaoshabao.base.service")
-@ComponentScan(basePackages="com.xiaoshabao.base.component")
+@ComponentScan(basePackages={
+        "com.xiaoshabao.base.controller",
+        "com.xiaoshabao.base.dao",
+        "com.xiaoshabao.base.service",
+        "com.xiaoshabao.base.component"})
+//开启事务支持
+@EnableTransactionManagement
 public class BaseApplication {
 
 }
