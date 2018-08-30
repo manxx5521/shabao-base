@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
-	
+
 	protected Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
 	/**
@@ -36,13 +38,36 @@ public class GlobalExceptionHandler {
 				|| (request.getHeader("X-Requested-With") != null
 						&& request.getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1))) {
 			Map<String, Object> model = new HashMap<String, Object>();
-			model.put("e", e);
-			logger.info("全局异常捕获",e);
+			if (e instanceof BindException) {
+				BindException be = (BindException) e;
+				StringBuffer msg = new StringBuffer();
+				for (FieldError fieldError : be.getFieldErrors()) {
+					msg.append(fieldError.getDefaultMessage()).append("，");
+				}
+				if (msg.length() > 0) {
+					model.put("message", msg.substring(0, msg.length() - 1));
+				}
+			} else {
+				model.put("e", e);
+				logger.info("全局异常捕获", e);
+			}
 			return new ModelAndView("/error/500", model);
 		} else {
 			AjaxResult result = new AjaxResult();
 			result.setSuccess(false);
-			result.setMessage("错误");
+			if (e instanceof BindException) {
+				BindException be = (BindException) e;
+				StringBuffer msg = new StringBuffer();
+				for (FieldError fieldError : be.getFieldErrors()) {
+					msg.append(fieldError.getDefaultMessage()).append("，");
+				}
+				if (msg.length() > 0) {
+					result.setMessage(msg.substring(0, msg.length() - 1));
+				}
+			} else {
+				logger.info("全局异常捕获", e);
+				result.setMessage("错误");
+			}
 			return result;
 		}
 	}
