@@ -10,6 +10,7 @@ import com.alibaba.druid.support.http.WebStatFilter;
 
 /**
  * 用来启动druid监控web
+ * <p>http://localhost:8080/druid/login.html</p>
  */
 @Configuration
 public class DruidConfiguration {

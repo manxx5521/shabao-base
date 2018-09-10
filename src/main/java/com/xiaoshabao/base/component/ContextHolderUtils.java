@@ -1,6 +1,7 @@
 package com.xiaoshabao.base.component;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.context.request.RequestContextHolder;
@@ -19,6 +20,17 @@ public class ContextHolderUtils {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
 				.getRequestAttributes()).getRequest();
 		return request;
+	}
+	
+	/**
+	 * SpringMvc下获取response
+	 * 
+	 * @return
+	 */
+	public static HttpServletResponse getResponse() {
+		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder
+				.getRequestAttributes()).getResponse();
+		return response;
 	}
 
 	/**
