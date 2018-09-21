@@ -1,6 +1,7 @@
 package com.xiaoshabao.base.component.oss;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +32,14 @@ public class OssController{
 		//上传文件
 		String url = ossFactory.build().upload(file);
 		return new AjaxResult(true,"上传成功",url);
+	}
+	
+	/**
+	 * 下载文件
+	 */
+	@RequestMapping("/download/{fileId}")
+	public AjaxResult upload(@PathVariable("fileId") Long fileId) throws Exception {
+		return null;
 	}
 
 

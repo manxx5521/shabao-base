@@ -14,3 +14,14 @@ INSERT INTO `sys_config` VALUES ('site_domain', '域名', '1', 'www.xiaoshabao.c
 INSERT INTO `sys_config` VALUES ('site_keywords', '关键字', '1', '博客，技术', null);
 INSERT INTO `sys_config` VALUES ('site_metas', '站点meta', '1', '', null);
 INSERT INTO `sys_config` VALUES ('site_name', '网站名', '1', '个人博客', null);
+
+CREATE TABLE `sys_file` (
+  `file_id` bigint(18) NOT NULL,
+  `upload_name` varchar(50) NOT NULL,
+  `ext` varchar(10) NOT NULL,
+  `save_path` varchar(50) NOT NULL,
+  `size` bigint(10) NOT NULL,
+  `md5` varchar(32) NOT NULL,
+  `create_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`file_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
