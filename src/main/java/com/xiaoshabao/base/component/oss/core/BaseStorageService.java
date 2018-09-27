@@ -17,6 +17,7 @@ import com.xiaoshabao.base.component.sysConfig.ConfigType;
 import com.xiaoshabao.base.component.sysConfig.SysConfig;
 import com.xiaoshabao.base.entity.SysFileEntity;
 import com.xiaoshabao.base.exception.MsgErrorException;
+import com.xiaoshabao.base.exception.ServiceException;
 import com.xiaoshabao.base.service.SysFileService;
 import com.xiaoshabao.base.util.SnowflakeUtil;
 
@@ -184,14 +185,23 @@ public abstract class BaseStorageService  implements StorageAble{
 	 * 获得保存文件的基本目录 /aaa/bb/
 	 */
 	public abstract String getBasePath();
-    
+	
+	/**
+	 * 获得文件实体对象
+	 * @param fileId
+	 * @return
+	 */
+	@Override
+   	public SysFileEntity getFileEntity(Long fileId) {
+   		SysFileEntity dbEntitys=fileService.getFileEntityById(fileId);
+    	if(dbEntitys==null) {
+    		throw new ServiceException("获取文件"+fileId+"数据库记录信息失败");
+    	}
+   		return dbEntitys;
+   	}
     @Override
 	public final String getUrl(Long fileId) {
-    	SysFileEntity dbEntitys=fileService.getFileEntityById(fileId);
-    	if(dbEntitys==null) {
-    		return null;
-    	}
-		return getUrl(dbEntitys);
+		return getUrl(getFileEntity(fileId));
 	}
 
 
@@ -215,18 +225,16 @@ public abstract class BaseStorageService  implements StorageAble{
    	 */
    	@Override
    	public String getRealFilePath(Long fileId) {
-   		SysFileEntity dbEntitys=fileService.getFileEntityById(fileId);
-    	if(dbEntitys==null) {
-    		return null;
-    	}
-   		return getRealFilePath(dbEntitys);
+   		return getRealFilePath(getFileEntity(fileId));
    	}
+   	
+   	
    	/**
    	 * 获得文件真实存放路径
    	 * @param fileEntity
    	 * @return
    	 */
-   	protected final String getRealFilePath(SysFileEntity entity) {
+   	public final String getRealFilePath(SysFileEntity entity) {
    		return getBasePath()+getRelativePath(entity);
    	}
    	

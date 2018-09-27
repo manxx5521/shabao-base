@@ -14,7 +14,9 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.xiaoshabao.base.entity.SysFileEntity;
 import com.xiaoshabao.base.exception.MsgErrorException;
+import com.xiaoshabao.base.exception.ServiceException;
 import com.xiaoshabao.base.lang.SiteConsts;
 import com.xiaoshabao.base.util.SnowflakeUtil;
 
@@ -129,5 +131,17 @@ public abstract class BaseLocalStorageService extends BaseStorageService impleme
    	public final void setServletContext(ServletContext servletContext) {
    		this.context = servletContext;
    	}
-   	
+
+	@Override
+	public InputStream getFileInputStream(SysFileEntity entity) {
+		File file=new File(this.getRealFilePath(entity));
+		if(!file.exists()){
+			throw new ServiceException("文件"+entity.getFileId()+"不存在！");
+		}
+		try (InputStream input=new FileInputStream(file)){
+			return  input;
+		} catch (Exception e) {
+			throw new ServiceException("文件"+entity.getFileId()+"获取文件流时出错！");
+		}
+	}
 }

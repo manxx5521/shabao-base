@@ -1,8 +1,11 @@
 package com.xiaoshabao.base.component.oss.core;
 
+import java.io.InputStream;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.xiaoshabao.base.component.oss.dto.UploadInfo;
+import com.xiaoshabao.base.entity.SysFileEntity;
 
 public interface StorageAble {
 	
@@ -68,5 +71,26 @@ public interface StorageAble {
    	 * @return 找不到时返回null
    	 */
     String getRealFilePath(Long fileId);
+    
+    /**
+   	 * 获得文件真实存放路径
+   	 * @param fileEntity
+   	 * @return
+   	 */
+   	String getRealFilePath(SysFileEntity entity);
+   	
+   	/**
+	 * 获得文件实体对象
+	 * @param fileId
+	 * @return
+	 */
+	SysFileEntity getFileEntity(Long fileId);
+	
+	/**
+	 * 获得文件输入流
+	 * @param entity
+	 * @return
+	 */
+	InputStream getFileInputStream(SysFileEntity entity);
 	
 }

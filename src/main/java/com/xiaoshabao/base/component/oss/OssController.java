@@ -1,5 +1,10 @@
 package com.xiaoshabao.base.component.oss;
 
+import java.io.BufferedInputStream;
+import java.io.OutputStream;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.xiaoshabao.base.component.AjaxResult;
+import com.xiaoshabao.base.component.oss.core.StorageAble;
+import com.xiaoshabao.base.entity.SysFileEntity;
 import com.xiaoshabao.base.exception.MsgErrorException;
 
 
@@ -38,8 +45,23 @@ public class OssController{
 	 * 下载文件
 	 */
 	@RequestMapping("/download/{fileId}")
-	public AjaxResult upload(@PathVariable("fileId") Long fileId) throws Exception {
-		return null;
+	public void upload(@PathVariable("fileId") Long fileId,HttpServletResponse response) throws Exception {
+		StorageAble factory=ossFactory.build();
+		SysFileEntity fileEntity=factory.getFileEntity(fileId);
+		
+		response.setHeader("content-type", "application/octet-stream");
+		response.setContentType("application/octet-stream");
+		response.setHeader("Content-Disposition", "attachment;filename=" + fileEntity.getUploadName()+","+fileEntity.getExt());
+	    byte[] buff = new byte[1024];
+	    try (OutputStream os =  response.getOutputStream();
+	    		BufferedInputStream bis =new BufferedInputStream(factory.getFileInputStream(fileEntity));){
+	      int i = bis.read(buff);
+	      while (i != -1) {
+	        os.write(buff, 0, buff.length);
+	        os.flush();
+	        i = bis.read(buff);
+	      }
+	    }
 	}
 
 
