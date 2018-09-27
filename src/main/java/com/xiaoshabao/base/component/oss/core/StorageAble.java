@@ -1,5 +1,6 @@
 package com.xiaoshabao.base.component.oss.core;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -91,6 +92,6 @@ public interface StorageAble {
 	 * @param entity
 	 * @return
 	 */
-	InputStream getFileInputStream(SysFileEntity entity);
+	InputStream getFileInputStream(SysFileEntity entity) throws IOException;
 	
 }
