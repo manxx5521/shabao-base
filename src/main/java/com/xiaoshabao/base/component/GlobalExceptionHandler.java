@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
 	@ResponseBody
 	public Object defaultErrorHandler(HttpServletRequest request, Exception e) throws Exception {
 		// 是否异步请求
-		if (!(request.getHeader("accept").indexOf("application/json") > -1
+		if ((request.getHeader("accept") == null || !(request.getHeader("accept").indexOf("application/json") > -1)
 				|| (request.getHeader("X-Requested-With") != null
 						&& request.getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1))) {
 			Map<String, Object> model = new HashMap<String, Object>();
