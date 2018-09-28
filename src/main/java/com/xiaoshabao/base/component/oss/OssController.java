@@ -21,9 +21,7 @@ import com.xiaoshabao.base.exception.MsgErrorException;
 import com.xiaoshabao.base.exception.ServiceException;
 
 /**
- * 文件上传
- * 
- * @author ace
+ * 文件上传下载
  */
 @RestController
 @RequestMapping("/oss")
