@@ -66,7 +66,7 @@ public class GlobalExceptionHandler {
 				}
 			} else {
 				logger.info("全局异常捕获", e);
-				result.setMessage("错误");
+				result.setMessage("未知错误");
 			}
 			return result;
 		}
