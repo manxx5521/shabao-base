@@ -1,5 +1,6 @@
 package com.xiaoshabao.base.component.sysConfig;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -131,7 +132,7 @@ public class SysConfig{
 						}
 					case ARRAY:	
 						if(configType==null||configType==4){
-							return configValue.split(",");
+							return StringUtils.split(configValue, ",");
 						}
 					default:
 						break;

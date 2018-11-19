@@ -12,7 +12,7 @@ public interface SiteConsts {
 		/**
 		 * 域名 www.xiaoshabao.com 形式
 		 */
-		String DOMAIN_ID="site_domain";
+		String DOMAIN_ID="site.domain";
 		
 	}
 

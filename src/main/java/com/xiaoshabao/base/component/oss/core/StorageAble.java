@@ -15,10 +15,17 @@ public interface StorageAble {
 	 * @param file
 	 */
 	void validateFile(MultipartFile file);
+	
+	/**
+	 * 上传文件
+	 * @param url
+	 * @return 返回本站相对目录访问url
+	 */
+	String upload(String url);
 	/**
 	 * 上传文件（默认验证文件）
 	 * @param file
-	 * @return 返回基本目录后的 目录
+	 * @return 返回本站相对目录访问url
 	 */
 	String upload(MultipartFile file);
 	/**

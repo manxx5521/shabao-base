@@ -21,6 +21,10 @@ import com.xiaoshabao.base.exception.ServiceException;
 import com.xiaoshabao.base.service.SysFileService;
 import com.xiaoshabao.base.util.SnowflakeUtil;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 /**
  * 云存储(支持七牛、阿里云、腾讯云、又拍云)
  */
@@ -110,7 +114,27 @@ public abstract class BaseStorageService  implements StorageAble{
 		return false;
 	}
 	
-    
+	@Override
+	public String upload(String url) {
+		String fileName=FilenameUtils.getName(url);
+		OkHttpClient client=new OkHttpClient();
+		Request request = new Request.Builder().url(url).build();
+		byte[] data=null;
+		try {
+			for(int i=0,size=5;i<size;i++) {
+				Response response = client.newCall(request).execute();
+				if (response.isSuccessful()) {
+					data=response.body().bytes();
+					break;
+				}
+			}
+		} catch (Exception e) {
+		}
+		if(data==null||data.length==0) {
+			throw new MsgErrorException("获得文件内容数组失败");
+		}
+    	return saveData(data,fileName).getUrl();
+    }
     @Override
 	public String upload(MultipartFile file) {
     	return uploadForInfo(file).getUrl();
@@ -118,12 +142,19 @@ public abstract class BaseStorageService  implements StorageAble{
     
     @Override
 	public UploadInfo uploadForInfo(MultipartFile file) {
-		UploadInfo result=new UploadInfo();
     	validateFile(file);
-    	long size=file.getSize();
     	String fileName = file.getOriginalFilename();
     	try {
-    		byte[] data=file.getBytes();
+			byte[] data=file.getBytes();
+			return saveData(data,fileName);
+		} catch (IOException e) {
+			throw new MsgErrorException("获得文件内容数组失败",e);
+		}
+	}
+    
+    private UploadInfo saveData(byte[] data,String fileName) {
+    	try {
+    		UploadInfo result=new UploadInfo();
     		String md5 = DigestUtils.md5Hex(data);
         	SysFileEntity entity=null;
         	
@@ -135,7 +166,7 @@ public abstract class BaseStorageService  implements StorageAble{
         		result.setUrl(getUrl(entity));
         	}else {
         		//不存在，新上传
-        		entity=this.insertEntity(md5, fileName, size);
+        		entity=this.insertEntity(md5, fileName, data.length);
         		String url=save(data,getBasePath(),getRelativePath(entity));
         		result.setUrl(url);
         	}
@@ -143,12 +174,10 @@ public abstract class BaseStorageService  implements StorageAble{
         	result.setFileId(entity.getFileId());
         	result.setFilePath(getRealFilePath(entity));
     		return result;
-		} catch (IOException e) {
-			throw new MsgErrorException("获得文件内容数组失败",e);
 		}catch (Exception e) {
 			throw new MsgErrorException("保存文件时，生成文件异常",e);
 		}
-	}
+    }
             
     protected final SysFileEntity insertEntity(String md5,String fileName,long size) {
     	return insertEntity(SnowflakeUtil.nextId(), md5, fileName, size);

@@ -9,11 +9,11 @@ CREATE TABLE `sys_config` (
 
 INSERT INTO `sys_config` VALUES ('custom.oss.basePath', '基本目录', '1', '/app/data/upload/', '文件存储');
 INSERT INTO `sys_config` VALUES ('custom.oss.type', '文件保存方式', '2', '2', '文件存储');
-INSERT INTO `sys_config` VALUES ('site_description', '站点描述', '1', '一个个人网站', null);
-INSERT INTO `sys_config` VALUES ('site_domain', '域名', '1', 'www.xiaoshabao.com', null);
-INSERT INTO `sys_config` VALUES ('site_keywords', '关键字', '1', '博客，技术', null);
-INSERT INTO `sys_config` VALUES ('site_metas', '站点meta', '1', '', null);
-INSERT INTO `sys_config` VALUES ('site_name', '网站名', '1', '个人博客', null);
+INSERT INTO `sys_config` VALUES ('site.description', '站点描述', '1', '一个个人网站', null);
+INSERT INTO `sys_config` VALUES ('site.domain', '域名', '1', 'www.xiaoshabao.com', null);
+INSERT INTO `sys_config` VALUES ('site.keywords', '关键字', '1', '博客，技术', null);
+INSERT INTO `sys_config` VALUES ('site.metas', '站点meta', '1', '', null);
+INSERT INTO `sys_config` VALUES ('site.name', '网站名', '1', '个人博客', null);
 
 CREATE TABLE `sys_file` (
   `file_id` bigint(18) NOT NULL,

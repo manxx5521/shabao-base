@@ -4,7 +4,7 @@ public enum SysEnum {
 	/**
 	 * 域的名字
 	 */
-	DOMAIN("domain",1);
+	DOMAIN("site.domain",1);
 	
 	private String name;
 	
