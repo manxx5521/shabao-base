@@ -68,6 +68,17 @@ public class AjaxResult {
 		this.message = message;
 		this.data = data;
 	}
+	public static AjaxResult ok(String message) {
+		return new AjaxResult(true,message);
+	}
+	
+	public static AjaxResult ok(Object data) {
+		return new AjaxResult(true,data);
+	}
+	
+	public static AjaxResult fail(String message) {
+		return new AjaxResult(false,message);
+	}
 	
 	/**
 	 * 设置成功信息
