@@ -25,3 +25,13 @@ CREATE TABLE `sys_file` (
   `create_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`file_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `sys_static` (
+  `type_id` varchar(50) NOT NULL COMMENT '类型',
+  `module` varchar(10) NOT NULL DEFAULT 'public' COMMENT '模块，默认public所有可查',
+  `data_id` varchar(20) NOT NULL COMMENT '数据id',
+  `data_name` varchar(50) NOT NULL COMMENT '数据名字',
+  `order_no` int(4) DEFAULT NULL COMMENT '排序',
+  `used` int(1) NOT NULL DEFAULT '1' COMMENT '是否使用',
+  PRIMARY KEY (`type_id`,`data_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统枚举表';
