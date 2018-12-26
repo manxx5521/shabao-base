@@ -27,6 +27,9 @@ public class StaticEntity {
      * 数据名字
      */
     private String dataName;
+    
+    /**排序*/
+    private Integer orderNo;
 
     /**
      * 是否使用
@@ -69,6 +72,14 @@ public class StaticEntity {
 	public void setModule(String module) {
 		this.module = module;
 	}
+	
+	public Integer getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(Integer orderNo) {
+		this.orderNo = orderNo;
+	}
 
 	@Override
     public String toString() {
@@ -77,6 +88,7 @@ public class StaticEntity {
         ", module=" + module +
         ", dataId=" + dataId +
         ", dataName=" + dataName +
+        ", orderNo=" + orderNo +
         ", used=" + used +
         "}";
     }

@@ -1,0 +1,20 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: shabao-base
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://47.91.220.42:3306/shabao_test?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: master
+    password: 19911105man
+  redis:
+    database: 5
+    port: 6379
+    host: 47.91.220.42
+    password: 19911105man
+    pool:
+      max-active: 20
+logging:
+  level:
+    root: DEBUG
