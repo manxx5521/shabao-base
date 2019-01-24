@@ -22,6 +22,9 @@ public class BaseController {
 
 	protected Logger logger;
 
+	/**重定向标识符*/
+	protected final static String REDIRECT="redirect:";
+	
 	@InitBinder
 	public void initBinder(ServletRequestDataBinder binder) {
 		/**
