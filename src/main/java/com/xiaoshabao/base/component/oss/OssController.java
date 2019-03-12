@@ -47,7 +47,7 @@ public class OssController {
 	 * 下载文件
 	 */
 	@RequestMapping("/download/{fileId}")
-	public void upload(@PathVariable("fileId") Long fileId,
+	public void download(@PathVariable("fileId") Long fileId,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		StorageAble factory = ossFactory.build();
