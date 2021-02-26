@@ -3,7 +3,7 @@
   <parent>
     <groupId>com.xiaoshabao</groupId>
     <artifactId>shabao-base-parent</artifactId>
-    <version>1.0.0</version>
+    <version>${shabao.version}</version>
   </parent>
   <artifactId>shabao-mybatis</artifactId>
   <name>shabao-mybatis</name>

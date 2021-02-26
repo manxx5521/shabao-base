@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.xiaoshabao</groupId>
 	<artifactId>shabao-base-parent</artifactId>
-	<version>1.0.0</version>
+	<version>${shabao.version}</version>
 	<name>基础包</name>
 	<description>通用基础包</description>
 	<packaging>pom</packaging>
@@ -39,7 +39,7 @@
 				<version>${shabao.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.xiaoshabao.base</groupId>
+				<groupId>com.xiaoshabao</groupId>
 				<artifactId>shabao-mybatis</artifactId>
 				<version>${shabao.version}</version>
 			</dependency>
