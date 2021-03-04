@@ -21,10 +21,11 @@ import com.xiaoshabao.base.component.sysConfig.SysConfig;
 
 @EnableWebMvc
 @Configuration
-public class WebConfig  implements WebMvcConfigurer {
+public class WebMvcConfiguration  implements WebMvcConfigurer {
 
 	@Autowired
 	private SysConfig sysConfig;
+	
 
 	/*
 	 * @EnableWebMvc使用后，可能会导致静态资源加载失效。指向 src/main/webapp
@@ -38,7 +39,7 @@ public class WebConfig  implements WebMvcConfigurer {
 		registry.addResourceHandler("/public/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/public/");
 		registry.addResourceHandler("/webjars/**")
 				.addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/META-INF/resources/webjars/");
-
+		
 		//存储文件为绝对目录时，添加映射关系
 		if (sysConfig.exists(StorageConstant.typeId)&&sysConfig.getInteger(StorageConstant.typeId)==OSSConstant.Type.LOCAL_ABSOLUTE) {
 			registry.addResourceHandler("/f/**").addResourceLocations((File.separator.equals("/")?"file://":"file:") 

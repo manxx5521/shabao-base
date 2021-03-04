@@ -8,7 +8,7 @@
   <parent>
     <groupId>com.xiaoshabao</groupId>
     <artifactId>shabao-base-parent</artifactId>
-    <version>${shabao.version}</version>
+    <version>1.0.0</version>
   </parent>
   
   <dependencies>
@@ -23,6 +23,17 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.junit.platform</groupId>
+		    <artifactId>junit-platform-launcher</artifactId>
+		    <scope>test</scope>
+		</dependency>
+		
 		<!-- 引入web依赖 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
