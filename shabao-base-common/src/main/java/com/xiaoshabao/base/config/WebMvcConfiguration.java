@@ -1,4 +1,4 @@
-package com.xiaoshabao.base.component;
+package com.xiaoshabao.base.config;
 
 import java.io.File;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.xiaoshabao.base.component;
+package com.xiaoshabao.base.config;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.xiaoshabao.base.component.AjaxResult;
 
 /**
  * 统一异常处理
