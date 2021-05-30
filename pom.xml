@@ -17,7 +17,10 @@
 		<!-- 第三方依赖版本 -->
 		<swagger>3.0.0</swagger>
 		<mybatis-plus>3.4.2</mybatis-plus>
+		<spring.cloud-version>2020.0.2</spring.cloud-version>
+		<spring.cloud.alibaba.version>2.2.5.RELEASE</spring.cloud.alibaba.version>
 		<hibernate-search-orm>5.11.8.Final</hibernate-search-orm>
+		<lombok.version>1.18.20</lombok.version>
 		<lucene-analyzers-smartcn>5.5.5</lucene-analyzers-smartcn>
 		
 		
@@ -33,6 +36,7 @@
 	<modules>
 		<module>shabao-base-common</module>
 		<module>shabao-base-mybatis</module>
+		<module>shabao-base-oauth-resource</module>
 	</modules>
 	
 	<!--依赖管理，用于管理子项目的依赖 -->
@@ -51,6 +55,20 @@
 				<version>${shabao.version}</version>
 			</dependency>
 			<!--增加自身的依赖 end -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring.cloud-version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring.cloud.alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 			<!-- druid数据源 -->
 			<dependency>
 				<groupId>com.alibaba</groupId>
@@ -113,6 +131,13 @@
 				<groupId>io.springfox</groupId>
 				<artifactId>springfox-swagger-ui</artifactId>
 				<version>${swagger}</version>
+			</dependency>
+			<!--Lombok-->
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok.version}</version>
+				<scope>provided</scope>
 			</dependency>
 
 			<!-- 用来在java中访问http资源 -->
