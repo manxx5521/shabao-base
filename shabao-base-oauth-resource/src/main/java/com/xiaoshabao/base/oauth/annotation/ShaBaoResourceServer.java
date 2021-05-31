@@ -11,17 +11,22 @@ import java.lang.annotation.Target;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
+import com.xiaoshabao.base.oauth.component.PigResourceServerAutoConfiguration;
+import com.xiaoshabao.base.oauth.component.PigResourceServerTokenRelayAutoConfiguration;
+import com.xiaoshabao.base.oauth.component.PigSecurityBeanDefinitionRegistrar;
+import com.xiaoshabao.base.oauth.feign.PigFeignClientConfiguration;
+
 /**
  * 资源服务注解
  */
 @Documented
 @Inherited
-@EnableResourceServer
+@ShaBaoResourceServer
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@Import({ /*PigResourceServerAutoConfiguration.class, PigSecurityBeanDefinitionRegistrar.class,
-          PigResourceServerTokenRelayAutoConfiguration.class, PigFeignClientConfiguration.class*/ })
-public @interface EnableResourceServer {
+@Import({ PigResourceServerAutoConfiguration.class, PigSecurityBeanDefinitionRegistrar.class,
+          PigResourceServerTokenRelayAutoConfiguration.class, PigFeignClientConfiguration.class })
+public @interface ShaBaoResourceServer {
 
 }

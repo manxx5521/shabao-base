@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-package com.pig4cloud.pig.common.security.exception;
+package com.xiaoshabao.base.oauth.exception;
+
+import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.pig4cloud.pig.common.security.component.PigAuth2ExceptionSerializer;
+import com.xiaoshabao.base.oauth.component.PigAuth2ExceptionSerializer;
+
 import lombok.Getter;
-import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 
 /**
  * @author lengleng

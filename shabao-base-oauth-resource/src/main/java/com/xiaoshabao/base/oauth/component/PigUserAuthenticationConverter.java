@@ -1,23 +1,9 @@
-/*
- * Copyright (c) 2020 pig4cloud Authors. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+package com.xiaoshabao.base.oauth.component;
 
-package com.pig4cloud.pig.common.security.component;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-import com.pig4cloud.pig.common.core.constant.SecurityConstants;
-import com.pig4cloud.pig.common.security.service.PigUser;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,14 +11,10 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.provider.token.UserAuthenticationConverter;
 import org.springframework.util.StringUtils;
 
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import com.xiaoshabao.base.oauth.service.PigUser;
+import com.xiaoshabao.base.oauth.util.OauthConstants;
 
 /**
- * @author lengleng
- * @date 2019-03-07
- * <p>
  * 根据checktoken 的结果转化用户信息
  */
 public class PigUserAuthenticationConverter implements UserAuthenticationConverter {
@@ -66,9 +48,9 @@ public class PigUserAuthenticationConverter implements UserAuthenticationConvert
 		if (map.containsKey(USERNAME)) {
 			Collection<? extends GrantedAuthority> authorities = getAuthorities(map);
 
-			String username = (String) map.get(SecurityConstants.DETAILS_USERNAME);
-			Integer id = (Integer) map.get(SecurityConstants.DETAILS_USER_ID);
-			Integer deptId = (Integer) map.get(SecurityConstants.DETAILS_DEPT_ID);
+			String username = (String) map.get(OauthConstants.DETAILS_USERNAME);
+			Integer id = (Integer) map.get(OauthConstants.DETAILS_USER_ID);
+			Integer deptId = (Integer) map.get(OauthConstants.DETAILS_DEPT_ID);
 			PigUser user = new PigUser(id, deptId, username, N_A, true, true, true, true, authorities);
 			return new UsernamePasswordAuthenticationToken(user, N_A, authorities);
 		}

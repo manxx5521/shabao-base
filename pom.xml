@@ -54,6 +54,11 @@
 				<artifactId>shabao-mybatis</artifactId>
 				<version>${shabao.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.xiaoshabao</groupId>
+				<artifactId>shabao-base-oauth-resource</artifactId>
+				<version>${shabao.version}</version>
+			</dependency>
 			<!--增加自身的依赖 end -->
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>

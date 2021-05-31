@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-package com.pig4cloud.pig.common.security.service;
+package com.xiaoshabao.base.oauth.service;
 
-import com.pig4cloud.pig.common.core.constant.CacheConstants;
-import lombok.SneakyThrows;
+import javax.sql.DataSource;
+
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 
-import javax.sql.DataSource;
+import com.xiaoshabao.base.oauth.util.OauthConstants;
+
+import lombok.SneakyThrows;
 
 /**
  * @author lengleng
@@ -43,7 +45,7 @@ public class PigClientDetailsService extends JdbcClientDetailsService {
 	 */
 	@Override
 	@SneakyThrows
-	@Cacheable(value = CacheConstants.CLIENT_DETAILS_KEY, key = "#clientId", unless = "#result == null")
+	@Cacheable(value = OauthConstants.CLIENT_DETAILS_KEY, key = "#clientId", unless = "#result == null")
 	public ClientDetails loadClientByClientId(String clientId) {
 		return super.loadClientByClientId(clientId);
 	}
