@@ -8,6 +8,7 @@ import org.springframework.util.PathMatcher;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * 设置不需要验证的请求
  * 改造 {@link BearerTokenExtractor} 对公开权限的请求不进行校验
  */
 public class PigBearerTokenExtractor extends BearerTokenExtractor {

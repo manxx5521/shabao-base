@@ -1,0 +1,8 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.xiaoshabao.base.component.sysConfig.SysConfig,\
+com.xiaoshabao.base.component.SpringContextHolder,\
+com.xiaoshabao.base.config.GlobalExceptionHandler,\
+com.xiaoshabao.base.config.WebMvcConfiguration,\
+com.xiaoshabao.base.service.impl.SysConfigServiceImpl,\
+com.xiaoshabao.base.component.oss.OSSFactory

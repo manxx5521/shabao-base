@@ -16,8 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Collections;
 
 /**
- * @author lengleng
- * @date 2020-06-23
+ * 权限接口注入
  */
 @EnableConfigurationProperties(PermitAllUrlProperties.class)
 public class PigResourceServerAutoConfiguration {
